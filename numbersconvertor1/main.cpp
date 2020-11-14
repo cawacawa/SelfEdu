@@ -2,7 +2,7 @@
 using namespace std;
 
 
-int index_in(char* str)
+int index_in(const char* str)
 {
 	if (str[0] == '0')
 	{
@@ -13,7 +13,7 @@ int index_in(char* str)
 	return -1;
 }
 
-int my_strlen(char* str)
+int my_strlen(const char* str)
 {
 	int i = 0;
 	while (str[i] != 0)
@@ -38,7 +38,7 @@ int str_to_int(const char* str, const int size, int index)
 
 void dec_to_(int num, const int index)
 {
-	char res[32] = "0";
+	char res[32] = {};
 	const char* digits = "0123456789ABCDEF";
 	int i = 0;
 	if (index == 2 || index == 16) i = 2;
@@ -53,6 +53,7 @@ void dec_to_(int num, const int index)
 	{
 		cout << res[i];
 	}
+	cout << res[i];//pizda tut
 	cout << endl;
 }
 
@@ -84,6 +85,26 @@ int _to_dec(const char* str, const int size, const int index)
 	return dec;
 }
 
+int to_dec(const char* strnum) 
+{
+	int indexin = 0;
+	indexin = index_in(strnum);
+	if (indexin == 10)
+	{
+		return str_to_int(strnum, my_strlen(strnum), indexin);
+	}
+	else if (indexin == 16 || indexin == 2)
+	{
+		return _to_dec(strnum, my_strlen(strnum), indexin);
+	} 
+	else if (indexin == -1) 
+	{
+		throw std::exception("govno");
+	}
+	//this should never happen
+	return 0;
+}
+
 int main()
 {
 	int indexin = 0, indexout = 0;
@@ -99,18 +120,8 @@ int main()
 	}
 	cout << "osnovanie out:";
 	cin >> indexout;
-	if ((indexin == 16 && indexout == 2) ||
-		(indexout == 16 && indexin == 2))
-	{
-		dec_to_(_to_dec(str, n, indexin), indexout);
-	}
-	else if (indexin == 10 && (indexout == 16 || indexout == 2))
-	{
-		dec_to_(str_to_int(str, n, indexin), indexout);
-	}
-	else if (indexout == 10 && (indexin == 16 || indexin == 2))
-	{
-		cout << _to_dec(str, n, indexin);
-	}
+	
+	dec_to_(to_dec(str),indexout);
+
 	return 0;
 }
