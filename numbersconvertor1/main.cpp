@@ -2,41 +2,31 @@
 using namespace std;
 
 
-int index_in(char* str) 
+int index_in(char* str)
 {
 	if (str[0] == '0')
 	{
-		if (str[1] == 'b' || str[1] == 'B')return 2;
+		if (str[1] == 'b' || str[1] == 'B') return 2;
 		else if (str[1] == 'x' || str[1] == 'X') return 16;
 	}
-	else if (str[1] >= '0' && str[1] <= '9') return 10;
-	else return -1;
-
-
-
-	if ((str[1] == 'b' || str[1] == 'B') && str[0] == '0') return 2;
-	else if ((str[1] == 'x' || str[1] == 'X') && str[0] == '0') return 16;
-	else if (str[1] >= '0' && str[1] <= '9' && str[0] != '0') return 10;
-	else return -1;
+	else if (str[0] >= '1' && str[0] <= '9') return 10;
+	return -1;
 }
-int my_strlen(char* str,int index)
+
+int my_strlen(char* str)
 {
-	const int size = 100;
-	int i = 0, length = 0;	
-	for (; i < 100; i++)
-	{
-		if (str[i] != 0) 
-		{
-			length++;				
-		}
-		else { break; }
-	}
-	return length;
-}
-int str_to_int(const char* str, const int size,int index)
-{	
 	int i = 0;
-	if (index == 2 || index == 16) i = 2;	
+	while (str[i] != 0)
+	{
+		i++;
+	}
+	return i;
+}
+
+int str_to_int(const char* str, const int size, int index)
+{
+	int i = 0;
+	if (index == 2 || index == 16) i = 2;
 	int num = 0;
 	while (i < size)
 	{
@@ -45,6 +35,7 @@ int str_to_int(const char* str, const int size,int index)
 	}
 	return num;
 }
+
 void dec_to_(int num, const int index)
 {
 	char res[32] = "0";
@@ -64,6 +55,7 @@ void dec_to_(int num, const int index)
 	}
 	cout << endl;
 }
+
 int char_to_int(const char chr)
 {
 	if (chr >= '0' && chr <= '9') return (chr - '0');
@@ -71,17 +63,18 @@ int char_to_int(const char chr)
 	else if (chr >= 'A' && chr <= 'F') return (chr - 'A' + 10);
 	else return -1;
 }
+
 int _to_dec(const char* str, const int size, const int index)
 {
 	int dec = 0;
-	if (index == 2 || index == 16) 
+	if (index == 2 || index == 16)
 	{
 		for (int j = 2, i = size - 1; j < size; ++j, --i)
 		{
-			dec += char_to_int(str[j]) * pow(index, i-2);
+			dec += char_to_int(str[j]) * pow(index, i - 2);
 		}
 	}
-	else 
+	else
 	{
 		for (int j = 0, i = size - 1; j < size; ++j, --i)
 		{
@@ -98,11 +91,11 @@ int main()
 	cout << "Chislo:";
 	cin >> str;
 	indexin = index_in(str);
-	int n = my_strlen(str,indexin);
+	int n = my_strlen(str);
 	if (index_in(str) == -1)
 	{
 		cout << "ne bratan, wrong chislo";
-		return -1; 
+		return -1;
 	}
 	cout << "osnovanie out:";
 	cin >> indexout;
@@ -113,11 +106,11 @@ int main()
 	}
 	else if (indexin == 10 && (indexout == 16 || indexout == 2))
 	{
-		dec_to_(str_to_int(str,n,indexin), indexout);
+		dec_to_(str_to_int(str, n, indexin), indexout);
 	}
 	else if (indexout == 10 && (indexin == 16 || indexin == 2))
 	{
-		cout<<_to_dec(str, n, indexin);
+		cout << _to_dec(str, n, indexin);
 	}
 	return 0;
 }
