@@ -1,15 +1,25 @@
 #include <iostream>
 using namespace std;
 
-// кто, я? аможет быть ты?
-int INDEX_IN(char* str) 
+
+int index_in(char* str) 
 {
+	if (str[0] == '0')
+	{
+		if (str[1] == 'b' || str[1] == 'B')return 2;
+		else if (str[1] == 'x' || str[1] == 'X') return 16;
+	}
+	else if (str[1] >= '0' && str[1] <= '9') return 10;
+	else return -1;
+
+
+
 	if ((str[1] == 'b' || str[1] == 'B') && str[0] == '0') return 2;
 	else if ((str[1] == 'x' || str[1] == 'X') && str[0] == '0') return 16;
 	else if (str[1] >= '0' && str[1] <= '9' && str[0] != '0') return 10;
 	else return -1;
 }
-int mystrlen(char* str,int index)
+int my_strlen(char* str,int index)
 {
 	const int size = 100;
 	int i = 0, length = 0;	
@@ -23,15 +33,7 @@ int mystrlen(char* str,int index)
 	}
 	return length;
 }
-void inStr(char* str, int size)
-{
-	cout << "Vvesti chislo " << endl;
-	for (int i = 0; i < size; i++)
-	{
-		cin >> str[i];
-	}
-}
-int strToInt(const char* str,const int size,int index)
+int str_to_int(const char* str, const int size,int index)
 {	
 	int i = 0;
 	if (index == 2 || index == 16) i = 2;	
@@ -43,7 +45,7 @@ int strToInt(const char* str,const int size,int index)
 	}
 	return num;
 }
-void DEC_TO_(int num, const int index)
+void dec_to_(int num, const int index)
 {
 	char res[32] = "0";
 	const char* digits = "0123456789ABCDEF";
@@ -62,28 +64,28 @@ void DEC_TO_(int num, const int index)
 	}
 	cout << endl;
 }
-int chartoint(const char chr)
+int char_to_int(const char chr)
 {
 	if (chr >= '0' && chr <= '9') return (chr - '0');
 	else if (chr >= 'a' && chr <= 'f') return (chr - 'a' + 10);
 	else if (chr >= 'A' && chr <= 'F') return (chr - 'A' + 10);
 	else return -1;
 }
-int _TO_DEC(const char* str, const int size, const int index)
+int _to_dec(const char* str, const int size, const int index)
 {
 	int dec = 0;
 	if (index == 2 || index == 16) 
 	{
 		for (int j = 2, i = size - 1; j < size; ++j, --i)
 		{
-			dec += chartoint(str[j]) * pow(index, i-2);
+			dec += char_to_int(str[j]) * pow(index, i-2);
 		}
 	}
 	else 
 	{
 		for (int j = 0, i = size - 1; j < size; ++j, --i)
 		{
-			dec += chartoint(str[j]) * pow(index, (i));
+			dec += char_to_int(str[j]) * pow(index, (i));
 		}
 	}
 	return dec;
@@ -95,9 +97,9 @@ int main()
 	char str[100] = {};
 	cout << "Chislo:";
 	cin >> str;
-	indexin = INDEX_IN(str);
-	int n = mystrlen(str,indexin);
-	if (INDEX_IN(str) == -1)
+	indexin = index_in(str);
+	int n = my_strlen(str,indexin);
+	if (index_in(str) == -1)
 	{
 		cout << "ne bratan, wrong chislo";
 		return -1; 
@@ -107,15 +109,15 @@ int main()
 	if ((indexin == 16 && indexout == 2) ||
 		(indexout == 16 && indexin == 2))
 	{
-		DEC_TO_(_TO_DEC(str, n, indexin), indexout);
+		dec_to_(_to_dec(str, n, indexin), indexout);
 	}
 	else if (indexin == 10 && (indexout == 16 || indexout == 2))
 	{
-		DEC_TO_(strToInt(str,n,indexin), indexout);
+		dec_to_(str_to_int(str,n,indexin), indexout);
 	}
 	else if (indexout == 10 && (indexin == 16 || indexin == 2))
 	{
-		cout<<_TO_DEC(str, n, indexin);
+		cout<<_to_dec(str, n, indexin);
 	}
 	return 0;
 }
