@@ -36,25 +36,39 @@ int str_to_int(const char* str, const int size, int index)
 	return num;
 }
 
-void dec_to_(int num, const int index)
-{
-	char res[32] = {};
-	const char* digits = "0123456789ABCDEF";
+char* dec_to_(int num, const int index)
+{	
+	int n = 32;
+	char* res = new char[n] {0};
+	char buff[32] = {};//
+	const char* digits = "0123456789ABCDEF";	
 	int i = 0;
-	if (index == 2 || index == 16) i = 2;
 	while (num)
 	{
-		res[i++] = digits[num % index];
-		num /= index;
+		buff[i++] = digits[num % index];//
+		num /= index;		
 	}
-	if (index == 2) cout << "0b";
-	if (index == 16) cout << "0x";
-	while (--i)
+	res[0] = '0';
+	if (index == 2)
 	{
-		cout << res[i];
+		res[1] = 'b';
 	}
-	cout << res[i];//pizda tut
-	cout << endl;
+	else
+	{
+		res[1] = 'x';
+	}
+	int j = my_strlen(buff) + 1;//
+	for (char a : buff) //
+	{
+		if ( j > 1)
+		{		
+			res[j] = a;
+			j--;
+		}
+	}
+	cout << res;
+	return res;
+	delete[] res;
 }
 
 int char_to_int(const char chr)
@@ -120,8 +134,14 @@ int main()
 	}
 	cout << "osnovanie out:";
 	cin >> indexout;
-	
+	if (indexin == indexout) 
+	{
+		cout << str;
+		return 0;
+	}
 	dec_to_(to_dec(str),indexout);
 
+
+	
 	return 0;
 }
