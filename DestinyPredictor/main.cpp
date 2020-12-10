@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -70,6 +71,54 @@ void chetnechet(char* str, char* newstr)
 	}
 	cout << endl << newstr;
 }
+int my_strstr(char* source, char* target) 
+{
+	
+	for (int i = 0; source[i] != 0; i++) 
+	{
+		for (int j = 0; source[i + j] == target[j]; j++) 
+		{
+			if (j+1 == my_strlen(target)) return i;
+		}
+	}
+	return -1;
+}
+int charstr(char* source, char target) 
+{ 
+	int i = 0;
+	for (; source[i] != target; i++);
+	return i;
+}
+void destiny(char* str, char* newstr)
+{ 
+	chetnechet(str, newstr);
+	char ric[4] { 'r','i','c' };
+	char bit[4] { 'b','i','t' };
+	char go[3] { 'g','o' };
+	char ba[3]  { 'b','a' };	
+	char p = 'p';
+	if (my_strstr(newstr, ric) > -1) 
+	{
+		cout << endl << "Wealth = " << my_strstr(newstr, ric) * 100 / my_strlen(newstr) << "%" << endl;
+	}
+	if (my_strstr(newstr, bit) > -1)
+	{
+		cout << endl << "Gnida na " << my_strstr(newstr, bit) * 100 / my_strlen(newstr) << "%" << endl;
+	}
+	if (my_strstr(newstr, go) > -1)
+	{
+		cout << endl << "Life enjoyer na " << my_strstr(newstr, go) * 100 / my_strlen(newstr) << "%" << endl;
+	}
+	if (my_strstr(newstr, ba) > -1)
+	{
+		cout << endl << "Schizophrenia = " << my_strstr(newstr, ba) * 100 / my_strlen(newstr) << "%" << endl;
+	}
+	if (charstr(newstr, p) < my_strlen(newstr))
+	{
+		cout << endl << "Patau-dodik progression = " << charstr(newstr, p) * 100 / my_strlen(newstr) << "%";
+	}
+}
+
 
 int main() 
 {
@@ -77,8 +126,8 @@ int main()
 	char newstr[50] = {};
 	cin >> str;
 	
-	chetnechet(str,newstr);
+	destiny(str, newstr);
 	
-	return 0;	
 	
+	return 0;
 }
