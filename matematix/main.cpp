@@ -28,7 +28,10 @@ void FillArrayRandom(int** arr)
 		}
 	}
 }
+void Transpose(int** arr)
+{
 
+}
 int main() 
 {
 	cout << " rows and cols: ";
