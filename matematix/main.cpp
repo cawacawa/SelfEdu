@@ -3,55 +3,78 @@
 
 using namespace std;
 
-int rows, cols;
-int MIN, MAX ;
+int g_Rows, g_Cols;
+int g_minValue, g_maxValue;
 
-void PrintArray(int** arr)
+
+int** newMatrix(int rows, int cols) 
+{
+	int** MATRIX = new int* [rows];
+	for (int i = 0; i < rows; i++)
+	{
+		MATRIX[i] = new int[cols];
+	}
+	return MATRIX;
+}
+void deleteMatrix(int** MATRIX)
+{
+	for (int i = 0; i < g_Rows; i++)
+	{
+		delete[] MATRIX[i];
+	}
+	delete[] MATRIX;
+}
+void PrintMatrix(int** MATRIX, int rows, int cols)
 {
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			cout << arr[i][j] << "   ";
+			cout << MATRIX[i][j] << "   ";
 		}
 		cout << endl;
 	}
 }
-void FillArrayRandom(int** arr)
+void FillMatrixRandom(int** MATRIX)
 {
 	srand(time(NULL));
-	for (int i = 0; i < rows; i++)
+	for (int i = 0; i < g_Rows; i++)
 	{
-		for (int j = 0; j < cols; j++)
+		for (int j = 0; j < g_Cols; j++)
 		{
-			arr[i][j] = rand() % MAX * 2 + MIN;
+			MATRIX[i][j] = rand() % g_maxValue * 2 + g_minValue;
 		}
 	}
 }
-void Transpose(int** arr)
+int** newTransposedMatrix(int** MATRIX)
 {
-
+	int** transposed = newMatrix(g_Cols, g_Rows);
+	for (int i = 0; i < g_Rows; ++i)
+	{
+		for (int j = 0; j < g_Cols; ++j) 
+		{ 
+			transposed[j][i] = MATRIX[i][j];  
+		}
+	}
+	return transposed;
 }
+
 int main() 
 {
 	cout << " rows and cols: ";
-	cin >> rows >> cols;
+	cin >> g_Rows >> g_Cols;
 	cout << " min and max: ";
-	cin >> MIN >> MAX;
-
-	int** arr = new int* [rows];
-	for (int i = 0; i < rows; i++)
-	{
-	    arr[i] = new int[cols];
-	}
+	cin >> g_minValue >> g_maxValue;
 	
-	FillArrayRandom(arr);
-	PrintArray(arr);
+	int** mtrx = newMatrix(g_Rows, g_Cols);
+	FillMatrixRandom(mtrx);
+	PrintMatrix(mtrx, g_Rows, g_Cols);
+	cout << endl;
+	int** tmtrx = newTransposedMatrix(mtrx);
+	PrintMatrix(tmtrx, g_Cols, g_Rows);
 	
-	for (int i = 0; i < rows; i++)
-	{
-		delete[] arr[i];
-	}
-	delete[] arr;
+	
+	deleteMatrix(mtrx);
+	deleteMatrix(tmtrx);
 	return 0;
 }
