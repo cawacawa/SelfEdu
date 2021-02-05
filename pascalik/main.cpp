@@ -1,5 +1,5 @@
 #include <iostream>
-#pragma warning(disable : 4996)
+
 
 using namespace std;
 
@@ -7,7 +7,7 @@ using namespace std;
 const int g_strMaxLength = 100;
 
 
-int my_strstr(char* source, const char* target)
+int myStrstr(char* source, const char* target)
 {
 	for (int i = 0; source[i] != 0; i++)
 	{
@@ -23,15 +23,15 @@ int targetSum(char* str)
 
 	const char* begin = "BEGIN";
 	const char* end = "END";
-	if ((my_strstr(str, end) < my_strstr(str, begin)) ||
-		my_strstr(str, end) == -1 ||
-		my_strstr(str, begin) == -1)
+	if ((myStrstr(str, end) < myStrstr(str, begin)) ||
+		myStrstr(str, end) == -1 ||
+		myStrstr(str, begin) == -1)
 	{
 		return -1;
 	}
 	int result = 0;
 
-	for (int i = my_strstr(str, begin) + 5; i < my_strstr(str, end); i++)
+	for (int i = myStrstr(str, begin) + 5; i < myStrstr(str, end); i++)
 	{
 		if (str[i] > '0' && str[i] <= '9')
 		{
@@ -43,7 +43,8 @@ int targetSum(char* str)
 
 int main()
 {
-	FILE* f_ptr = fopen("testfile.txt", "r");
+	FILE* f_ptr = 0; 
+	fopen_s(&f_ptr, "testfile.txt", "r");
 	if (f_ptr == NULL)
 	{
 		cout << "error, didn't open the file";
