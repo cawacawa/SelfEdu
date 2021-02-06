@@ -1,12 +1,8 @@
 #include <iostream>
 #include <ctime>
 
-using namespace std;
-
-
 void fillArrRandom(int* arr, int size) 
 {
-	srand(time(NULL));
 	for (int i = 0; i < size; i++)
 	{
 		arr[i] = rand() % 10;
@@ -16,7 +12,7 @@ void printArr(int* arr, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
-		cout << arr[i] << " ";
+		std::cout << arr[i] << " ";
 	}
 }
 int min(int* arr, int size)
@@ -57,32 +53,53 @@ int max(int* arr, int size)
 	}
 	return -1;
 }
-void sort(int* arr, int size)
+void mySwap(int &a, int &b)
 {
-	int buff = 0;
+	if (&a != &b) 
+	{
+		int tmp = 0;
+		tmp = a;
+		a = b;
+		b = tmp;
+	}
+}
+void psort(int* arr, int size)
+{
 	for (int i = 0; i < size; i++) 
 	{
-		for (int j = 0; j < size; j++)
+		bool flag = true;
+		for (int j = 0; j < size - (i + 1); j++) 
 		{
-			if (arr[i] > arr[j]) 
+			if (arr[j] > arr[j + 1]) 
 			{
-				buff = arr[i];
-				arr[i] = arr[j];
-				arr[j] = buff;
+				flag = false;
+				mySwap(arr[j], arr[j + 1]);
 			}
+		}
+		if (flag) 
+		{
+			break;
 		}
 	}
 }
-
 int main() 
 {
-	const int size = 7;
-	int arr[size] = {};
+	srand(time(NULL));
+	int size = 0;
+	std::cout << "Enter array size: ";
+	std::cin >> size;
+	int* arr = new int[size];
+
+
 	fillArrRandom(arr, size);
 	printArr(arr, size);
-	cout << endl;
-	sort(arr, size);
+	std::cout << std::endl << "Min: " << min(arr, size);
+	std::cout << std::endl << "Max: " << max(arr, size);
+	psort(arr, size);
+	std::cout << std::endl << "Sorted array: ";
 	printArr(arr, size);
 
+
+	delete[] arr;
 	return 0;
 }
