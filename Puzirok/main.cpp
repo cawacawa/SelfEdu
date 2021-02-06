@@ -1,13 +1,12 @@
 #include <iostream>
 #include <ctime>
 
-const int g_maxNumberInArray = 9;
-
 void fillArrRandom(int* arr, int size) 
 {
+	const int maxNumberInArray = 9;
 	for (int i = 0; i < size; i++)
 	{
-		arr[i] = rand() % g_maxNumberInArray + 1;
+		arr[i] = rand() % maxNumberInArray + 1;
 	}
 }
 void printArr(int* arr, int size)
