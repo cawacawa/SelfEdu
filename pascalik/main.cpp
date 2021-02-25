@@ -1,11 +1,10 @@
 #include <iostream>
 
-
 using namespace std;
 
-
+const char* g_begin = "BEGIN";
+const char* g_end = "END";
 const int g_strMaxLength = 100;
-
 
 int myStrstr(char* source, const char* target)
 {
@@ -20,18 +19,14 @@ int myStrstr(char* source, const char* target)
 }
 int targetSum(char* str)
 {
-
-	const char* begin = "BEGIN";
-	const char* end = "END";
-	if ((myStrstr(str, end) < myStrstr(str, begin)) ||
-		myStrstr(str, end) == -1 ||
-		myStrstr(str, begin) == -1)
+	if ((myStrstr(str, g_end) < myStrstr(str, g_begin)) ||
+		myStrstr(str, g_end) == -1 ||
+		myStrstr(str, g_begin) == -1)
 	{
 		return -1;
 	}
 	int result = 0;
-
-	for (int i = myStrstr(str, begin) + 5; i < myStrstr(str, end); i++)
+	for (int i = myStrstr(str, g_begin) + strlen(g_begin); i < myStrstr(str, g_end); i++)
 	{
 		if (str[i] > '0' && str[i] <= '9')
 		{
@@ -40,24 +35,19 @@ int targetSum(char* str)
 	}
 	return result;
 }
-
 int main()
 {
-	FILE* f_ptr = 0; 
-	fopen_s(&f_ptr, "testfile.txt", "r");
-	if (f_ptr == NULL)
+	FILE* fptr = 0; 
+	fopen_s(&fptr, "testfile.txt", "r");
+	if (fptr == NULL)
 	{
 		cout << "error, didn't open the file";
 		return -1;
 	}
-
 	char filestr[g_strMaxLength]{};
-	fread(filestr, sizeof(char), g_strMaxLength, f_ptr);
-
-
+	fread(filestr, sizeof(char), g_strMaxLength, fptr);
 	cout << targetSum(filestr);
 
-
-	fclose(f_ptr);
+	fclose(fptr);
 	return 0;
 }
