@@ -1,9 +1,6 @@
 #include <iostream>
 #include <ctime>
 
-
-
-
 int g_minValue = 0, g_maxValue = 0;
 
 int** newMatrix(int rows, int cols) 
@@ -23,7 +20,7 @@ void deleteMatrix(int** matrix, int rows)
 	}
 	delete[] matrix;
 }
-void PrintMatrix(int** matrix, int rows, int cols)
+void printMatrix(int** matrix, int rows, int cols)
 {
 	for (int i = 0; i < rows; i++)
 	{
@@ -34,7 +31,7 @@ void PrintMatrix(int** matrix, int rows, int cols)
 		std::cout << std::endl;
 	}
 }
-void FillMatrixRandom(int** matrix, int rows, int cols)
+void fillMatrixRandom(int** matrix, int rows, int cols)
 {
 	for (int i = 0; i < rows; i++)
 	{
@@ -44,7 +41,7 @@ void FillMatrixRandom(int** matrix, int rows, int cols)
 		}
 	}
 }
-int** newTransposedMatrix(int** matrix, int** transposed, int rows, int cols)
+int** transposeMatrix(int** matrix, int** transposed, int rows, int cols)
 {
 	for (int i = 0; i < rows; ++i)
 	{
@@ -66,12 +63,12 @@ int main()
 	std::cin >> g_minValue >> g_maxValue;
 	
 	int** mtrx = newMatrix(rows, cols);
-	FillMatrixRandom(mtrx, rows, cols);
-	PrintMatrix(mtrx, rows, cols);
+	fillMatrixRandom(mtrx, rows, cols);
+	printMatrix(mtrx, rows, cols);
 	std::cout << std::endl;
 	int** tmtrx = newMatrix(cols, rows);
-	newTransposedMatrix(mtrx,tmtrx, rows, cols);
-	PrintMatrix(tmtrx, cols, rows);
+	transposeMatrix(mtrx,tmtrx, rows, cols);
+	printMatrix(tmtrx, cols, rows);
 	
 	
 	deleteMatrix(mtrx, rows);
