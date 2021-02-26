@@ -1,9 +1,8 @@
 #include <iostream>
 #include <ctime>
 
-void fillArrRandom(int* arr, int size) 
+void fillArrRandom(int* arr, int size, const int maxNumberInArray)
 {
-	const int maxNumberInArray = 9;
 	for (int i = 0; i < size; i++)
 	{
 		arr[i] = rand() % maxNumberInArray + 1;
@@ -18,41 +17,27 @@ void printArr(int* arr, int size)
 }
 int min(int* arr, int size)
 {
-	int i = 0, j = 0;
+	int i = 1, j = 0;
 	for (; i < size; i++) 
 	{
-		for (j = 0; j < size; j++) 
+		if (arr[i] < arr[j]) 
 		{
-			if (arr[i] > arr[j])
-			{
-				break;
-			}
-		}
-		if (j == size) 
-		{
-			return arr[i];
+			j = i;
 		}
 	}
-	return -1;
+	return arr[j];
 }
 int max(int* arr, int size)
 {
-	int i = 0, j = 0;
+	int i = 1, j = 0;
 	for (; i < size; i++)
 	{
-		for (j = 0; j < size; j++)
+		if (arr[i] > arr[j])
 		{
-			if (arr[i] < arr[j])
-			{
-				break;
-			}
-		}
-		if (j == size)
-		{
-			return arr[i];
+			j = i;
 		}
 	}
-	return -1;
+	return arr[j];
 }
 void mySwap(int &a, int &b)
 {
@@ -90,9 +75,9 @@ int main()
 	std::cout << "Enter array size: ";
 	std::cin >> size;
 	int* arr = new int[size];
+	const int maxNumberInArray = 9;
 
-
-	fillArrRandom(arr, size);
+	fillArrRandom(arr, size, maxNumberInArray);
 	printArr(arr, size);
 	std::cout << std::endl << "Min: " << min(arr, size);
 	std::cout << std::endl << "Max: " << max(arr, size);
