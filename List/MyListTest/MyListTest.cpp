@@ -33,7 +33,7 @@ namespace MyListTest
 		{
 			MyList<int> testlist;
 			testlist.addToBegin(3);
-			Assert::IsTrue(testlist.getSize()==1);
+			Assert::IsTrue(testlist.getSize() == 1);
 			testlist.addToBegin(2);
 			Assert::IsTrue(testlist.getSize() == 2);
 			testlist.addToBegin(1);
