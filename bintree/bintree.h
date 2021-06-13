@@ -19,28 +19,27 @@ class MyBinTree
 	Node<T>* root;
 public:
 	MyBinTree() 
-	{
-		root = nullptr;
-	}
+		: root(nullptr)
+	{}
 	~MyBinTree() 
 	{
 		deleteTree(&root);
 	}
 	void add(T data) {
-		Node<T>** cur = &root;
-		while (*cur) {
-			Node<T>& node = **cur;
-			if (data < node.inf) {
-				cur = &node.left;
+		Node<T>* cur = root;
+		while (cur) {
+			Node<T>* node = cur;
+			if (data < node->inf) {
+				cur = node->left;
 			}
-			else if (data > node.inf) {
-				cur = &node.right;
+			else if (data > node->inf) {
+				cur = node->right;
 			}
 			else {
 				return;
 			}
 		}
-		*cur = new Node<T>(data);
+		cur = new Node<T>(data);
 	}
 private:
 	void deleteTree(Node<T>** root) 
