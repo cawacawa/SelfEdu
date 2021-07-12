@@ -2,7 +2,7 @@
 #include "..\bintree\bintree.h"
 
 TEST(BinTree, insertAndSize) {
-	MyBinTree<int> testtree;
+	BST<int> testtree;
 
 	const size_t count = 5;
 	testtree.insert(5);
@@ -14,7 +14,7 @@ TEST(BinTree, insertAndSize) {
 	ASSERT_EQ(testtree.size(), count);
 }
 TEST(BinTree, remove) {
-	MyBinTree<int> testtree;
+	BST<int> testtree;
 
 	const size_t countAfterRemove = 4;
 	testtree.insert(5);
@@ -31,7 +31,7 @@ TEST(BinTree, remove) {
 }
 TEST(BinTree, find) 
 {
-	MyBinTree<int> testtree;
+	BST<int> testtree;
 	testtree.insert(5);
 	testtree.insert(10);
 	testtree.insert(15);

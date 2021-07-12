@@ -1,8 +1,12 @@
 #pragma once
+#include <iostream>
+#include <vector>
 
+
+using namespace std;
 
 template <typename T>
-class MyBinTree 
+class BST 
 {
 	template<typename T>
 	struct Node
@@ -19,10 +23,11 @@ class MyBinTree
 	
 	Node<T>* root;
 public:
-	MyBinTree() 
+
+	BST() 
 		: root(nullptr)
 	{}
-	~MyBinTree() 
+	~BST() 
 	{
 		deleteTree(root);
 	}
@@ -43,7 +48,7 @@ public:
 	{
 		return size(root);
 	}
-
+	template <typename T1> friend ostream& operator<< (ostream& os, BST<T1>& bst);
 private:
 	void deleteTree(Node<T>* root) 
 	{
@@ -134,4 +139,16 @@ private:
 		else
 			return(size(stroot->left) + 1 + size(stroot->right));
 	}
+	ostream& PreOrder(ostream& outstream, Node<T>* cur) 
+	{
+		if (cur != nullptr)
+		{
+			outstream << cur->inf << " ";
+			PreOrder(outstream, cur->left);
+			PreOrder(outstream, cur->right);
+		}
+		return outstream;
+	}
 };
+
+
